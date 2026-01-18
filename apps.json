@@ -1,0 +1,18 @@
+{
+  "apps": [
+    {
+      "id": "org.xbmc.kodi",
+      "title": "Kodi (Nightly)",
+      "description": "Kodi nightly build for webOS (auto-updated)",
+      "iconUri": "https://raw.githubusercontent.com/TU_USUARIO/kodi-webos-nightly-repo/main/icon.png",
+      "category": "Media",
+      "version": "org.xbmc.kodi_20260114-0b18e304-master_arm",
+      "license": "GPL-2.0",
+      "developer": {"name": "Kodi Team"},
+      "sourceUrl": "https://kodi.tv",
+      "appDescription": "Latest nightly build for Kodi on webOS",
+      "ipkUrl": "https://mirrors.kodi.tv/nightlies/webos/master/org.xbmc.kodi_20260114-0b18e304-master_arm.ipk",
+      "minWebOSVersion": "4.0.0"
+    }
+  ]
+}

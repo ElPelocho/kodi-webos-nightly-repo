@@ -3,7 +3,7 @@ name: Update Kodi Nightly
 on:
   schedule:
     - cron: '0 0 * * *'  # cada día a medianoche
-  workflow_dispatch:        # permite ejecutar manualmente
+  workflow_dispatch:
 
 jobs:
   update-nightly:
@@ -12,22 +12,18 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-        with:
-          persist-credentials: true
 
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y wget jq
 
       - name: Find latest nightly
         run: |
-          # Buscar el último IPK en la carpeta nightlies del mirror compatible
           LATEST=$(curl -s https://ftp.fau.de/xbmc/nightlies/webos/master/ | \
                    grep -oP 'org\.xbmc\.kodi_[0-9]+.*?-master_arm\.ipk' | sort | tail -1)
           echo "LATEST=$LATEST" >> $GITHUB_ENV
 
       - name: Download latest IPK
-        run: |
-          wget -O kodi-nightly.ipk "https://ftp.fau.de/xbmc/nightlies/webos/master/$LATEST"
+        run: wget -O kodi-nightly.ipk "https://ftp.fau.de/xbmc/nightlies/webos/master/$LATEST"
 
       - name: Compute SHA256 and size
         run: |
@@ -39,7 +35,6 @@ jobs:
       - name: Update repo.json
         run: |
           VERSION=$(echo "$LATEST" | sed -E 's/org\.xbmc\.kodi_([0-9]+.*?)-master_arm\.ipk/\1/')
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
           jq --arg url "https://ftp.fau.de/xbmc/nightlies/webos/master/$LATEST" \
              --arg hash "$SHA256" \
              --arg size "$SIZE" \
@@ -49,6 +44,7 @@ jobs:
               .packages[0].manifest.ipkSize = ($size | tonumber) |
               .packages[0].manifest.version = $version' repo.json > repo.json.tmp
           mv repo.json.tmp repo.json
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Commit and push changes
         run: |
@@ -56,6 +52,4 @@ jobs:
           git config user.email "actions@github.com"
           git add repo.json
           git diff --cached --quiet || git commit -m "Update Kodi nightly $VERSION"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/ElPelocho/kodi-webos-nightly-repo.git HEAD:main

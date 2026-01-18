@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          persist-credentials: true
 
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y wget jq
@@ -36,11 +38,8 @@ jobs:
 
       - name: Update repo.json
         run: |
-          # Extraer versión del nombre del archivo
           VERSION=$(echo "$LATEST" | sed -E 's/org\.xbmc\.kodi_([0-9]+.*?)-master_arm\.ipk/\1/')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-
-          # Actualizar repo.json con URL compatible con la TV
           jq --arg url "https://ftp.fau.de/xbmc/nightlies/webos/master/$LATEST" \
              --arg hash "$SHA256" \
              --arg size "$SIZE" \
@@ -52,12 +51,11 @@ jobs:
           mv repo.json.tmp repo.json
 
       - name: Commit and push changes
-        uses: actions/setup-node@v3 # esto solo asegura git funcione con tokens si quieres
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add repo.json
-          git commit -m "Update Kodi nightly $VERSION" || echo "No changes"
-          git push origin main
+          git diff --cached --quiet || git commit -m "Update Kodi nightly $VERSION"
+          git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

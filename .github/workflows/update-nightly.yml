@@ -29,7 +29,7 @@ jobs:
           echo "LATEST=$LATEST" >> $GITHUB_ENV
 
       - name: Download latest IPK
-        run: wget -O kodi-nightly.ipk "https://ftp.fau.de/xbmc/nightlies/webos/master/$LATEST"
+        run: wget -O kodi-nightly.ipk "ftp://ftp.fau.de/xbmc/nightlies/webos/master/$LATEST"
 
       - name: Compute SHA256 and size
         run: |
@@ -47,8 +47,8 @@ jobs:
           if [ ! -f repo.json ]; then
             echo '{"packages":[{"manifest":{}}]}' > repo.json
           fi
-          # Actualizar repo.json
-          jq --arg url "https://ftp.fau.de/xbmc/nightlies/webos/master/$LATEST" \
+          # Actualizar repo.json con FTP
+          jq --arg url "ftp://ftp.fau.de/xbmc/nightlies/webos/master/$LATEST" \
              --arg hash "$SHA256" \
              --arg size "$SIZE" \
              --arg version "$VERSION" \
@@ -65,3 +65,5 @@ jobs:
           git add repo.json
           git diff-index --quiet HEAD || git commit -m "Update Kodi nightly $VERSION"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

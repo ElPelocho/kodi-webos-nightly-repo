@@ -8,18 +8,22 @@
   "packages": [
     {
       "id": "org.xbmc.kodi",
-      "title": "Kodi (Nightly)",
-      "iconUri": "https://raw.githubusercontent.com/ElPelocho/kodi-webos-nightly-repo/main/icon.png",
+      "title": "Kodi Nightly",
+      "iconUri": "https://repo.webosbrew.org/apps/icons/org.xbmc.kodi.png",
+      "manifestUrl": "/api/apps/org.xbmc.kodi/manifests/nightly.json",
       "manifest": {
         "id": "org.xbmc.kodi",
-        "version": "20260116-nightly",
-        "type": "webos-app",
         "title": "Kodi Nightly",
-        "appDescription": "Nightly build of Kodi for webOS",
-        "iconUri": "https://raw.githubusercontent.com/ElPelocho/kodi-webos-nightly-repo/main/icon.png",
+        "version": "nightly",
+        "type": "native",
+        "appDescription": "Kodi nightly build for webOS",
+        "iconUri": "https://repo.webosbrew.org/apps/icons/org.xbmc.kodi.png",
         "sourceUrl": "https://github.com/xbmc/xbmc",
-        "rootRequired": false,
         "ipkUrl": "https://mirrors.kodi.tv/nightlies/webos/master/org.xbmc.kodi_20260116-4f0fafe6-master_arm.ipk"
+      },
+      "pool": "main",
+      "requirements": {
+        "webosRelease": ">=4.0"
       }
     }
   ]

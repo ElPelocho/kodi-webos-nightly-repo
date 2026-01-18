@@ -17,7 +17,7 @@
         "title": "Kodi Nightly",
         "appDescription": "Nightly build of Kodi for webOS",
         "iconUri": "https://raw.githubusercontent.com/ElPelocho/kodi-webos-nightly-repo/main/icon.png",
-        "sourceUrl": "https://kodi.tv",
+        "sourceUrl": "https://github.com/xbmc/xbmc",
         "rootRequired": false,
         "ipkUrl": "https://mirrors.kodi.tv/nightlies/webos/master/org.xbmc.kodi_20260116-4f0fafe6-master_arm.ipk"
       }

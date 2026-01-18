@@ -1,18 +1,16 @@
-{
-  "apps": [
-    {
-      "id": "org.xbmc.kodi",
-      "title": "Kodi (Nightly)",
-      "description": "Kodi nightly build for webOS",
-      "category": "Media",
-      "version": "manual",
-      "license": "GPL-2.0",
-      "developer": {
-        "name": "Kodi Team"
-      },
-      "sourceUrl": "https://kodi.tv",
-      "ipkUrl": "https://mirrors.kodi.tv/nightlies/webos/master/org.xbmc.kodi_20260116-4f0fafe6-master_arm.ipk",
-      "minWebOSVersion": "4.0.0"
-    }
-  ]
-}
+[
+  {
+    "id": "org.xbmc.kodi",
+    "title": "Kodi (Nightly)",
+    "description": "Kodi nightly build for webOS",
+    "category": "Media",
+    "version": "20260116-nightly",
+    "license": "GPL-2.0",
+    "developer": {
+      "name": "Kodi Team"
+    },
+    "sourceUrl": "https://kodi.tv",
+    "ipkUrl": "https://mirrors.kodi.tv/nightlies/webos/master/org.xbmc.kodi_20260116-4f0fafe6-master_arm.ipk",
+    "minWebOSVersion": "4.0.0"
+  }
+]

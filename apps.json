@@ -12,8 +12,8 @@
       "iconUri": "https://raw.githubusercontent.com/ElPelocho/kodi-webos-nightly-repo/main/icon.png",
       "manifest": {
         "id": "org.xbmc.kodi",
-        "version": "nightly",
-        "type": "webos",
+        "version": "20260116-nightly",
+        "type": "webos-app",
         "title": "Kodi Nightly",
         "appDescription": "Nightly build of Kodi for webOS",
         "iconUri": "https://raw.githubusercontent.com/ElPelocho/kodi-webos-nightly-repo/main/icon.png",

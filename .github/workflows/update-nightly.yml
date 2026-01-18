@@ -3,7 +3,10 @@ name: Update Kodi Nightly
 on:
   schedule:
     - cron: '0 0 * * *'  # cada día a medianoche
-  workflow_dispatch:
+  workflow_dispatch:      # permite ejecutar manualmente
+
+permissions:
+  contents: write         # permite hacer push con GITHUB_TOKEN
 
 jobs:
   update-nightly:
@@ -12,6 +15,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          clean: false    # importante para no borrar archivos existentes
 
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y wget jq
@@ -34,7 +40,14 @@ jobs:
 
       - name: Update repo.json
         run: |
+          # Extraer versión del nombre del archivo
           VERSION=$(echo "$LATEST" | sed -E 's/org\.xbmc\.kodi_([0-9]+.*?)-master_arm\.ipk/\1/')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          # Si no existe repo.json, crearlo básico
+          if [ ! -f repo.json ]; then
+            echo '{"packages":[{"manifest":{}}]}' > repo.json
+          fi
+          # Actualizar repo.json
           jq --arg url "https://ftp.fau.de/xbmc/nightlies/webos/master/$LATEST" \
              --arg hash "$SHA256" \
              --arg size "$SIZE" \
@@ -44,12 +57,11 @@ jobs:
               .packages[0].manifest.ipkSize = ($size | tonumber) |
               .packages[0].manifest.version = $version' repo.json > repo.json.tmp
           mv repo.json.tmp repo.json
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Commit and push changes
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add repo.json
-          git diff --cached --quiet || git commit -m "Update Kodi nightly $VERSION"
-          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/ElPelocho/kodi-webos-nightly-repo.git HEAD:main
+          git diff-index --quiet HEAD || git commit -m "Update Kodi nightly $VERSION"
+          git push

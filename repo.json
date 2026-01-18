@@ -2,7 +2,7 @@
   "packages": [
     {
       "manifest": {
-        "ipkUrl": "https://mirrors.kodi.tv/nightlies/webos/master/org.xbmc.kodi_20260116-4f0fafe6-master_arm.ipk",
+        "ipkUrl": "https://ftp.fau.de/xbmc/nightlies/webos/master/org.xbmc.kodi_20260116-4f0fafe6-master_arm.ipk",
         "ipkHash": {
           "sha256": "f8da5d35f27c435a8c81ca69355ecf8e435d2c1e3aea810fc7382c51f8ce1c59"
         },

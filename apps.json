@@ -1,18 +1,26 @@
-[
-  {
-    "id": "org.xbmc.kodi",
-    "title": "Kodi (Nightly)",
-    "iconUri": "https://raw.githubusercontent.com/ElPelocho/kodi-webos-nightly-repo/main/icon.png",
-    "manifest": {
+{
+  "paging": {
+    "page": 1,
+    "count": 1,
+    "maxPage": 1,
+    "itemsTotal": 1
+  },
+  "packages": [
+    {
       "id": "org.xbmc.kodi",
-      "version": "20260116-nightly",
-      "type": "webos",
-      "title": "Kodi Nightly",
-      "appDescription": "Latest nightly build of Kodi for webOS",
+      "title": "Kodi (Nightly)",
       "iconUri": "https://raw.githubusercontent.com/ElPelocho/kodi-webos-nightly-repo/main/icon.png",
-      "sourceUrl": "https://kodi.tv",
-      "ipkUrl": "https://mirrors.kodi.tv/nightlies/webos/master/org.xbmc.kodi_20260116-4f0fafe6-master_arm.ipk",
-      "rootRequired": false
+      "manifest": {
+        "id": "org.xbmc.kodi",
+        "version": "nightly",
+        "type": "webos",
+        "title": "Kodi Nightly",
+        "appDescription": "Nightly build of Kodi for webOS",
+        "iconUri": "https://raw.githubusercontent.com/ElPelocho/kodi-webos-nightly-repo/main/icon.png",
+        "sourceUrl": "https://kodi.tv",
+        "rootRequired": false,
+        "ipkUrl": "https://mirrors.kodi.tv/nightlies/webos/master/org.xbmc.kodi_20260116-4f0fafe6-master_arm.ipk"
+      }
     }
-  }
-]
+  ]
+}
